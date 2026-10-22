@@ -1,0 +1,18 @@
+{
+  "model": "sonnet",
+  "modelSettings": {
+    "claude-sonnet-5-5": { "effortLevel": "high" },
+    "claude-opus-5-5": { "effortLevel": "high" },
+    "claude-haiku-5-5": { "effortLevel": "low" }
+  },
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": ["Read", "Glob", "Grep", "WebSearch", "WebFetch"],
+    "deny": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/statusline.sh",
+    "padding": 0
+  }
+}
