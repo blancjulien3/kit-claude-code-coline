@@ -17,18 +17,19 @@ curl -fsSL https://claude.ai/install.sh | bash
 
 Vérifie avec `claude --version` dans un nouveau Terminal.
 
-## 2. Installer le kit
+## 2. Installer le kit (une seule commande)
 
-Dans le Terminal (Mac : application Terminal) :
+Ouvre l'application Terminal (Cmd+Espace, tape « Terminal ») et colle cette ligne, puis Entrée :
 
 ```
-cd ~/Downloads/KIT-CLAUDE-CODE-DEBUTANTE
-bash install.sh
+git clone https://github.com/blancjulien3/kit-claude-code-coline.git ~/KIT-CLAUDE-CODE && bash ~/KIT-CLAUDE-CODE/install.sh
 ```
 
-(Adapte le premier chemin si tu as mis le dossier ailleurs.)
+Si le Mac propose d'installer les « outils de développement en ligne de commande », accepte, attends la fin, puis recolle la même ligne.
 
-Le script copie la barre de statut, les commandes et les règles dans `~/.claude`, en sauvegardant ce qui existait. Puis ouvre `~/.claude/CLAUDE.md` et remplace les crochets par tes vraies informations (ta marque, ta plateforme de boutique, l'adresse de ton site).
+Le script copie la barre de statut, les commandes et les règles dans `~/.claude` (en sauvegardant ce qui existait), installe `jq` si Homebrew est présent, et ouvre le guide PDF complet (`guide/GUIDE-COLINE.pdf`). Puis ouvre `~/.claude/CLAUDE.md` et remplace les crochets par tes vraies informations (ta marque, ta plateforme de boutique, l'adresse de ton site).
+
+Pour mettre le kit à jour plus tard : `cd ~/KIT-CLAUDE-CODE && git pull && bash install.sh`.
 
 Relance Claude Code. Sous la zone de saisie tu dois voir une ligne comme :
 
@@ -105,6 +106,6 @@ Il te demandera de te connecter une fois avec `gh auth login`. Ensuite, chaque f
 
 ## En cas de problème
 
-- La barre affiche « — » partout : vérifie que `jq` est installé (`jq --version`) et que tu es connectée (`/login`). Les chiffres 5 h et semaine apparaissent après ton premier message.
+- La barre affiche des tirets partout : vérifie que `jq` est installé (`jq --version`) et que tu es connectée (`/login`). Les chiffres 5 h et semaine apparaissent après ton premier message.
 - Claude demande une autorisation à chaque action : normal en mode `acceptEdits` pour les commandes système. Réponds « Yes, and don't ask again » quand c'est une commande sûre.
 - Quelque chose ne marche pas : envoie à Julien une capture de la barre et le message d'erreur.

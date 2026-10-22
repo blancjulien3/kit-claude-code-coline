@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Claude Code pour Coline : le guide</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  :root { --ink:#1b1b1f; --muted:#5b5f6b; --accent:#0091CC; --soft:#eef6fb; --line:#dfe3ea; --warn:#fff4e5; --warn-ink:#8a4b00; --ok:#edf7ee; }
+  * { box-sizing: border-box; }
+  body { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--ink); font-size: 11.2pt; line-height: 1.5; margin: 0; }
+  h1 { font-size: 26pt; line-height: 1.15; margin: 0 0 6pt; letter-spacing: -0.01em; }
+  h2 { font-size: 16pt; margin: 26pt 0 8pt; padding-bottom: 4pt; border-bottom: 2px solid var(--accent); page-break-after: avoid; }
+  h3 { font-size: 12.5pt; margin: 16pt 0 5pt; page-break-after: avoid; }
+  p { margin: 0 0 8pt; }
+  ul, ol { margin: 0 0 8pt 18pt; padding: 0; }
+  li { margin-bottom: 3pt; }
+  code { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 9.6pt; background: #f3f4f7; padding: 1px 4px; border-radius: 3px; }
+  pre { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 9.6pt; background: #f3f4f7; border: 1px solid var(--line); border-radius: 6px; padding: 9pt 11pt; white-space: pre-wrap; word-break: break-word; margin: 6pt 0 10pt; page-break-inside: avoid; }
+  table { width: 100%; border-collapse: collapse; margin: 6pt 0 12pt; font-size: 10.2pt; page-break-inside: avoid; }
+  th, td { border: 1px solid var(--line); padding: 5pt 7pt; vertical-align: top; text-align: left; }
+  th { background: var(--soft); }
+  .cover { padding: 40pt 0 20pt; border-bottom: 1px solid var(--line); margin-bottom: 18pt; }
+  .cover .sub { font-size: 13pt; color: var(--muted); margin-top: 6pt; }
+  .cover .meta { font-size: 9.5pt; color: var(--muted); margin-top: 18pt; }
+  .box { border-left: 4px solid var(--accent); background: var(--soft); padding: 8pt 11pt; margin: 8pt 0 12pt; border-radius: 0 6px 6px 0; page-break-inside: avoid; }
+  .warn { border-left-color: #e08a00; background: var(--warn); color: var(--warn-ink); }
+  .ok { border-left-color: #2e8b57; background: var(--ok); }
+  .bar { font-family: "SF Mono", Menlo, monospace; font-size: 9.4pt; background: #1b1b1f; color: #e8e8ea; padding: 8pt 10pt; border-radius: 6px; margin: 6pt 0 10pt; }
+  .toc li { margin-bottom: 2pt; }
+  .small { font-size: 9.5pt; color: var(--muted); }
+  .pb { page-break-before: always; }
+  .kbd { display:inline-block; border:1px solid #bbb; border-bottom-width:2px; border-radius:4px; padding:0 5px; font-size:9.5pt; background:#fafafa; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>Claude Code pour Coline</h1>
+  <div class="sub">Tout ce que Julien te transmet, et comment l'utiliser sans vider ton abonnement.</div>
+  <div class="meta">Kit préparé le 22 octobre 2026 · Abonnement Claude Pro · Mac + VS Code</div>
+</div>
+
+<p>Ce guide accompagne le kit installé sur ton Mac. Il explique ce que chaque pièce fait, pourquoi elle existe, et la routine à suivre au quotidien. Lis-le une fois en entier (20 minutes), puis garde la dernière page sous la main : c'est l'aide-mémoire.</p>
+
+<div class="box">
+<strong>Le principe en une phrase.</strong> Tu diriges, Claude exécute. Tu réfléchis avec lui dans une session courte, il écrit un plan en petites étapes, puis tu lances chaque étape dans une conversation neuve. C'est ce qui permet de faire beaucoup avec un petit compteur.
+</div>
+
+<h2>Sommaire</h2>
+<ol class="toc">
+  <li>Ce qui a été installé sur ton Mac</li>
+  <li>La barre de statut : lire ta consommation en direct</li>
+  <li>Pourquoi les tokens filent, et les trois réflexes</li>
+  <li>Les modèles : lequel pour quoi</li>
+  <li>La méthode : brainstorm, plan, blocs</li>
+  <li>Première séance pas à pas : refaire une page de ta boutique</li>
+  <li>Les vidéos avec HyperFrames</li>
+  <li>Sécurité : ce que Claude ne fera jamais sans toi</li>
+  <li>Sauvegarder avec GitHub</li>
+  <li>Dépannage</li>
+  <li>Aide-mémoire</li>
+</ol>
+
+<h2>1. Ce qui a été installé sur ton Mac</h2>
+
+<p>La commande que tu as collée a récupéré le dépôt GitHub de Julien dans <code>~/KIT-CLAUDE-CODE</code>, lancé l'installation, puis ouvert ce guide. Voici ce qui a été copié dans le dossier caché <code>~/.claude</code> (le dossier de réglages de Claude Code) :</p>
+
+<table>
+<tr><th>Fichier</th><th>Rôle</th></tr>
+<tr><td><code>~/.claude/CLAUDE.md</code></td><td>Tes règles permanentes. Claude les lit au début de chaque conversation, dans tous tes projets. C'est là que tu dis qui tu es, ce que tu fais, et comment tu veux qu'il travaille.</td></tr>
+<tr><td><code>~/.claude/settings.json</code></td><td>Les réglages : Sonnet comme modèle par défaut, la barre de statut, le mode de permissions.</td></tr>
+<tr><td><code>~/.claude/scripts/statusline.sh</code></td><td>Le script de la barre de statut (section 2).</td></tr>
+<tr><td><code>~/.claude/scripts/usage.sh</code></td><td>Affiche ta consommation dans le Terminal avec un conseil, quand Claude Code n'est pas ouvert.</td></tr>
+<tr><td><code>~/.claude/commands/brainstorm.md</code>, <code>plan.md</code>, <code>bloc.md</code></td><td>Les trois commandes de la méthode (section 5). Tu les tapes avec un <code>/</code> devant.</td></tr>
+</table>
+
+<p>Rien de ce qui existait avant n'a été effacé : si tu avais déjà un <code>CLAUDE.md</code> ou un <code>settings.json</code>, une copie datée a été gardée à côté (suffixe <code>.sauvegarde-…</code>).</p>
+
+<p>Le dossier <code>~/KIT-CLAUDE-CODE</code> contient aussi <code>video/</code>, un modèle de studio vidéo à copier dans tes projets (section 7), et le fichier <code>LISEZMOI.md</code>, version courte de ce guide.</p>
+
+<h3>À faire maintenant : personnaliser tes règles</h3>
+<p>Ouvre <code>~/.claude/CLAUDE.md</code> dans VS Code (Fichier, Ouvrir… ; tape <span class="kbd">Cmd</span>+<span class="kbd">Maj</span>+<span class="kbd">.</span> dans la fenêtre d'ouverture pour voir les dossiers cachés). Remplace les crochets :</p>
+<ul>
+  <li><code>[TA MARQUE]</code> : le nom de ta marque.</li>
+  <li><code>[PLATEFORME : Shopify, WooCommerce, Wix...]</code> : l'outil de ta boutique.</li>
+  <li><code>[URL]</code> : l'adresse de ton site.</li>
+</ul>
+<p>Plus Claude sait qui tu es, moins tu dois le réexpliquer, et moins tu dépenses.</p>
+
+<h2>2. La barre de statut : lire ta consommation en direct</h2>
+
+<p>Sous la zone où tu écris à Claude, une ligne s'affiche en permanence :</p>
+<div class="bar">🤖 Sonnet 5.5 │ 🧠 ctx: 12% │ 🕐 5h: 34% · reset 23/10 02h00 │ 📅 Sem: 41% · reset 29/10 20h00</div>
+
+<table>
+<tr><th>Élément</th><th>Ce que c'est</th><th>Quoi faire</th></tr>
+<tr><td>🤖 Sonnet 5.5</td><td>Le modèle qui répond en ce moment.</td><td>Vérifie qu'il correspond à ce que tu fais (section 4).</td></tr>
+<tr><td>🧠 ctx</td><td>Le remplissage de la conversation en cours. Claude relit toute la conversation à chaque message : plus elle est pleine, plus chaque réponse coûte.</td><td>Sous 40 % : tranquille. 40 à 60 % : un « ! » apparaît, termine ce que tu fais. Au-dessus de 60 % : ⚠️, tape <code>/clear</code>.</td></tr>
+<tr><td>🕐 5h</td><td>Ta fenêtre de 5 heures. Elle se remplit avec chaque réponse (chat Claude inclus) et se vide d'un coup à l'heure indiquée.</td><td>À 80 %, un ⚠️ apparaît : finis proprement et attends la remise à zéro.</td></tr>
+<tr><td>📅 Sem</td><td>Ta limite hebdomadaire. C'est le vrai plafond : quand elle est pleine, plus rien jusqu'à la date indiquée.</td><td>Répartis : si tu es à 50 % le mardi, ralentis. Garde toujours 15 % pour un imprévu.</td></tr>
+</table>
+
+<p class="small">Les chiffres 5 h et Sem viennent de Claude Code lui-même et sont les mêmes que sur claude.ai. Ils apparaissent après ton premier message dans une session. La commande <code>/usage</code> affiche les mêmes informations en grand.</p>
+
+<h2>3. Pourquoi les tokens filent, et les trois réflexes</h2>
+
+<p>Un « token » est un morceau de mot. Tout ce que tu écris, tout ce que Claude lit (fichiers, résultats de commandes) et tout ce qu'il répond consomme des tokens. Deux choses coûtent cher sans qu'on s'en rende compte :</p>
+<ol>
+  <li><strong>Les longues conversations.</strong> Au vingtième message, Claude relit les dix-neuf précédents avant de répondre. Une conversation de deux heures peut coûter dix fois plus qu'une conversation de dix minutes avec le même résultat.</li>
+  <li><strong>Le modèle puissant pour une tâche simple.</strong> Opus consomme nettement plus que Sonnet (environ le double d'après l'expérience de Julien) pour corriger une faute d'orthographe aussi bien que Sonnet.</li>
+</ol>
+
+<div class="box ok">
+<strong>Les trois réflexes.</strong><br>
+1. <strong>Un sujet, une session.</strong> Nouveau sujet ? <code>/clear</code>. Tu ne perds rien : la mémoire du projet est dans les fichiers BRIEF.md et PLAN.md, pas dans la conversation.<br>
+2. <strong>Le bon modèle.</strong> Sonnet pour produire (ton défaut), Opus pour réfléchir (brainstorm, plan), Haiku pour ranger.<br>
+3. <strong>Écrire la mémoire dans des fichiers.</strong> Quand une décision est prise, elle va dans BRIEF.md ou PLAN.md. La prochaine session la lit en quelques secondes.
+</div>
+
+<p>Autres habitudes qui comptent : interrompre Claude avec <span class="kbd">Échap</span> dès qu'il part dans une mauvaise direction (chaque seconde de travail inutile coûte), ne pas lui demander de « tout relire » ou de « tout vérifier » sans raison, et ne pas coller des pages entières de texte quand un fichier dans le dossier suffit.</p>
+
+<h2>4. Les modèles : lequel pour quoi</h2>
+
+<table>
+<tr><th>Modèle</th><th>Commande</th><th>Quand</th><th>Coût</th></tr>
+<tr><td>Sonnet 5.5</td><td><code>/model sonnet</code></td><td>Produire : pages, textes de boutique, fiches produit, visuels, vidéos, corrections, réglages. Ton modèle par défaut.</td><td>Référence</td></tr>
+<tr><td>Opus 5.5</td><td><code>/model opus</code></td><td>Réfléchir : brainstorm, plan, décision importante, problème que Sonnet n'arrive pas à résoudre. Sessions courtes.</td><td>Environ 2×</td></tr>
+<tr><td>Haiku 5.5</td><td><code>/model haiku</code></td><td>Mécanique : renommer des fichiers, ranger, mettre en forme, résumer un document. Jamais de texte pour tes clients.</td><td>Très faible</td></tr>
+</table>
+
+<p>Le modèle Fable qu'utilise Julien n'est pas inclus dans l'abonnement Pro. Tu n'en as pas besoin : Opus est très largement suffisant pour réfléchir à un site, une boutique ou une vidéo.</p>
+
+<p><strong>L'effort.</strong> En plus du modèle, tu peux régler la profondeur de réflexion : <code>/effort medium</code> pour du contenu et des tâches simples (moins de tokens), <code>/effort high</code> pour un bloc difficile. Le kit met <code>high</code> par défaut ; passe en <code>medium</code> quand tu écris du texte ou que tu fais des petites retouches.</p>
+
+<h2 class="pb">5. La méthode : brainstorm, plan, blocs</h2>
+
+<p>C'est la façon de travailler de Julien, adaptée à ton abonnement. Trois commandes, trois sessions différentes, toujours dans le dossier du projet (dans VS Code : Fichier, Ouvrir le dossier…).</p>
+
+<h3>Étape 1 : <code>/brainstorm</code> (Opus)</h3>
+<p>Tu donnes une idée en une phrase. Claude ne te bombarde pas de questions : il propose d'abord une direction complète (pour qui, quelle promesse, quelles pages ou vidéos, quelles idées signature marquées [IDÉE]), puis il pose ses questions en une seule fois, par choix multiples. Il écrit au fil de l'eau un fichier <code>BRIEF.md</code> à la racine du dossier. Quand le brief est prêt, il te le dit et te donne la marche à suivre.</p>
+<pre>/model opus
+/brainstorm "refaire la page d'accueil pour mettre en avant la collection d'hiver"</pre>
+
+<h3>Étape 2 : <code>/plan</code> (Opus, session neuve)</h3>
+<p>Après <code>/clear</code>, Claude lit seulement BRIEF.md et écrit <code>PLAN.md</code> : une suite de blocs de 20 minutes à 1 heure de travail, chacun avec un résultat que tu peux voir et tester, le modèle à utiliser, ce que tu dois fournir avant, et la marche à suivre exacte. Il propose aussi une répartition (« blocs 0 et 1 aujourd'hui, 2 et 3 demain ») en regardant ta barre de statut.</p>
+<pre>/clear
+/model opus
+/plan</pre>
+
+<h3>Étape 3 : <code>/bloc N</code> (Sonnet en général, session neuve à chaque bloc)</h3>
+<p>Après <code>/clear</code>, Claude lit PLAN.md, exécute le bloc demandé, teste le résultat, met à jour le plan (statut, reste à finir, journal), et te rend compte : ce qu'il a fait, ce que tu dois tester, le prochain bloc. Puis il s'arrête et attend ton « ok ». Il n'enchaîne jamais tout seul.</p>
+<pre>/clear
+/model sonnet
+/bloc 1</pre>
+
+<div class="box">
+<strong>Pourquoi ça économise autant.</strong> Chaque session repart de zéro et ne lit qu'un fichier court. La conversation reste petite, donc chaque message reste bon marché. Et si tu fermes VS Code au milieu, rien n'est perdu : le plan dit exactement où tu en es.
+</div>
+
+<p><strong>Un bloc n'a pas besoin d'être parfait pour être validé.</strong> Les petits détails vont dans la rubrique « Reste à finir » du plan et se reprennent plus tard, groupés, dans un bloc Sonnet ou Haiku.</p>
+
+<p><strong>Quand Claude bloque.</strong> Les commandes lui imposent de s'arrêter après trois essais ratés sur le même problème et de t'expliquer deux ou trois pistes différentes avec leurs risques. C'est toi qui choisis. Ça évite les boucles qui vident la fenêtre de 5 heures pour rien.</p>
+
+<h2>6. Première séance pas à pas : refaire une page de ta boutique</h2>
+
+<ol>
+  <li>Crée un dossier pour le projet, par exemple <code>~/Documents/PROJETS/BOUTIQUE</code>. Jamais dans iCloud Drive, OneDrive ou Google Drive (les fichiers techniques y créent des conflits). Mets-y ce qui existe : captures d'écran de la page actuelle, textes, photos, logo.</li>
+  <li>Dans VS Code : Fichier, Ouvrir le dossier…, choisis ce dossier. Ouvre le panneau Claude Code.</li>
+  <li>Regarde la barre : si « 5h » est au-dessus de 60 %, attends la remise à zéro avant de commencer un brainstorm.</li>
+  <li>Tape <code>/model opus</code> puis <code>/brainstorm "refaire la page d'accueil de ma boutique pour la collection d'hiver"</code>. Réponds aux questions groupées. Compte 10 à 20 minutes.</li>
+  <li>Quand Claude dit « prêt pour /plan » : <code>/clear</code>, <code>/model opus</code>, <code>/plan</code>. Lis le plan : la liste « Ce que je dois fournir » te dit ce qu'il attend de toi (accès à la boutique, photos, textes). Fournis-le dans le dossier.</li>
+  <li><code>/clear</code>, <code>/model sonnet</code>, <code>/bloc 0</code>. Le bloc 0 est toujours la mise en place et la sauvegarde de l'existant. Valide.</li>
+  <li>Pour chaque bloc suivant : <code>/clear</code>, le modèle indiqué dans le plan, <code>/bloc N</code>. Teste ce que Claude te demande de tester. Dis « ok » ou ce qui ne va pas.</li>
+  <li>Quand une mise en ligne réelle sur ta boutique est en jeu, Claude te montre d'abord et attend ton accord explicite. Si ta plateforme n'est pas pilotable depuis un fichier (Shopify, Wix…), il te prépare les textes et visuels prêts à coller, avec l'ordre exact des manipulations.</li>
+</ol>
+
+<div class="box warn">
+<strong>Un conseil de Julien.</strong> Commence par un petit projet (une page, cinq fiches produit) pour apprendre la méthode. Pas la refonte complète du site le premier jour.
+</div>
+
+<h2 class="pb">7. Les vidéos avec HyperFrames</h2>
+
+<p>Julien fabrique ses vidéos de motion design (textes animés, transitions, musique, carte de fin) avec Claude Code et HyperFrames, un outil gratuit : la vidéo est décrite comme une page web animée, puis rendue en MP4. Pas de montage à la main. Le dossier <code>~/KIT-CLAUDE-CODE/video</code> reproduit sa méthode avec une commande <code>/video</code> adaptée à ta marque.</p>
+
+<h3>Installation (une fois)</h3>
+<ol>
+  <li>Installe Node.js version LTS depuis <code>https://nodejs.org</code> si ce n'est pas déjà fait.</li>
+  <li>Copie le dossier <code>video</code> dans tes projets, par exemple <code>~/Documents/PROJETS/VIDEOS</code>.</li>
+  <li>Ouvre ce dossier dans VS Code, lance Claude Code et colle :
+  <pre>Installe HyperFrames dans ce dossier avec `npx hyperframes skills` (le jeu complet de skills), puis vérifie avec `npx hyperframes skills check`. Ne crée aucune vidéo pour l'instant.</pre></li>
+  <li>Remplis <code>kit/marque/frame.md</code> (couleurs, polices, ton, carte de fin) et <code>kit/produit/PRODUIT.md</code> (ta marque, tes produits, tes messages exacts, les seuls chiffres autorisés). Mets ton logo dans <code>kit/logos/</code> et des photos ou captures réelles dans <code>kit/captures/</code>. Claude n'invente ni chiffre ni visuel : tout vient de ce kit.</li>
+</ol>
+
+<h3>Produire une vidéo</h3>
+<pre>/clear
+/model sonnet
+/video "montrer le déballage de la nouvelle collection, ambiance douce, 20 secondes, pour Instagram"</pre>
+<p>Claude s'arrête deux fois : il te montre le script (60 mots au plus, une accroche, une idée, une preuve réelle, un appel) et attend ton « ok » ; puis il te montre une planche de 4 ou 5 images clés et attend ton « ok ». Ensuite il construit, rend <code>videos/&lt;nom&gt;/renders/video.mp4</code>, et fait un contrôle qualité (lisibilité, zone sûre, carte de fin). Pour t'inspirer d'une vidéo vue sur Instagram ou TikTok, décris dans le prompt ce que tu aimes (rythme, taille des textes, ambiance) : il s'en inspire sans copier.</p>
+
+<div class="box warn">
+<strong>Attention à la consommation.</strong> Une vidéo est le travail le plus gourmand du kit : script, direction artistique, composition, contrôle. Compte qu'une vidéo peut occuper une grande partie d'une fenêtre de 5 heures. Règles : une vidéo par session, jamais deux ; lancer seulement quand « 5h » est sous 30 % et « Sem » sous 60 % ; une seule version par vidéo puis des retouches ciblées ; Sonnet par défaut, Opus seulement si le résultat déçoit vraiment.
+</div>
+
+<p>Si Claude dit qu'un besoin n'est couvert par aucun skill (musique, image générée, effet particulier), il s'arrête et te propose une solution : c'est voulu, il ne doit pas bricoler. Toute génération payante (image, musique) demande ton accord explicite avant.</p>
+
+<h2>8. Sécurité : ce que Claude ne fera jamais sans toi</h2>
+
+<p>Les règles permanentes du kit lui interdisent, dans tous tes projets :</p>
+<ul>
+  <li>de supprimer un fichier avec <code>rm</code> (il passe par la corbeille ou te demande) ;</li>
+  <li>de modifier ta boutique en ligne réelle, publier sur un réseau, envoyer un email, payer ou lancer une génération payante sans te l'avoir montré d'abord et sans ton « ok » explicite ;</li>
+  <li>d'afficher ou copier une clé API, un mot de passe, un fichier <code>.env</code> ;</li>
+  <li>de livrer un bouton qui ne fait rien, un texte « à compléter » ou une tâche à moitié finie en disant que c'est terminé ;</li>
+  <li>d'inventer un chiffre, un prix, un avis client, une date.</li>
+</ul>
+
+<p><strong>Le mode de permissions.</strong> Le kit règle Claude Code en mode <code>acceptEdits</code> : il peut créer et modifier les fichiers du projet sans te demander, mais il te demande confirmation avant toute commande système. Quand une demande apparaît pour une commande sûre que tu reverras souvent, réponds « Yes, and don't ask again » : la permission est mémorisée. Quand tu seras à l'aise, Julien pourra te montrer le mode « bypass » qui ne demande plus rien, avec un garde-fou adapté.</p>
+
+<p><strong>Les sauvegardes.</strong> Avant tout changement risqué sur un fichier existant, Claude fait une copie datée (ou un commit Git si le dossier en a un). Le bloc 0 de chaque plan sauvegarde l'existant.</p>
+
+<h2>9. Sauvegarder avec GitHub</h2>
+
+<p>GitHub est un coffre en ligne pour tes dossiers de projet, avec l'historique de chaque version. Tu as un compte (<code>Colinechartier</code>). Pour y mettre un projet, dis à Claude dans le dossier du projet :</p>
+<pre>Initialise Git dans ce dossier, crée un dépôt privé sur mon compte GitHub Colinechartier et pousse le contenu. Explique-moi chaque étape en une ligne.</pre>
+<p>La première fois, il te fera te connecter avec <code>gh auth login</code> (un code à recopier dans le navigateur). Ensuite, à la fin d'un bloc, « commit et push » suffit : le plan et le travail sont à l'abri. Les photos et vidéos lourdes n'ont pas leur place sur GitHub : garde-les dans le dossier, Claude les exclura.</p>
+
+<h2>10. Dépannage</h2>
+
+<table>
+<tr><th>Symptôme</th><th>Cause probable</th><th>Solution</th></tr>
+<tr><td>La barre n'apparaît pas</td><td>Claude Code n'a pas rechargé les réglages</td><td>Ferme et relance VS Code. Vérifie <code>~/.claude/settings.json</code> contient bien <code>statusLine</code>.</td></tr>
+<tr><td>La barre affiche des tirets partout</td><td><code>jq</code> absent, ou pas connectée</td><td>Dans le Terminal : <code>jq --version</code>. S'il manque : <code>brew install jq</code>. Puis <code>/login</code> dans Claude Code. Les chiffres 5 h et Sem n'apparaissent qu'après ton premier message.</td></tr>
+<tr><td>« Not logged in »</td><td>Session expirée</td><td>Tape <code>/login</code> et reconnecte-toi avec ton compte Pro.</td></tr>
+<tr><td><code>/brainstorm</code> inconnu</td><td>Les commandes ne sont pas chargées</td><td>Vérifie que <code>~/.claude/commands/brainstorm.md</code> existe. Relance VS Code.</td></tr>
+<tr><td>Claude demande une autorisation à chaque action</td><td>Mode <code>acceptEdits</code>, normal pour les commandes système</td><td>« Yes, and don't ask again » pour les commandes sûres et répétitives.</td></tr>
+<tr><td>Claude tourne en boucle sur un bug</td><td>Il n'a pas appliqué la règle des trois essais</td><td><span class="kbd">Échap</span>, puis écris : « Stop. Trois essais. Donne-moi deux pistes différentes et laisse-moi choisir. »</td></tr>
+<tr><td>« ctx » monte très vite</td><td>Claude lit de gros fichiers ou de longs résultats</td><td>Demande-lui de ne lire que ce dont le bloc a besoin. Si tu dépasses 60 % : il met le journal du plan à jour, puis <code>/clear</code> et <code>/bloc N</code> pour reprendre.</td></tr>
+<tr><td>La fenêtre 5 h est pleine</td><td>Trop de travail d'un coup</td><td>L'heure de remise à zéro est dans la barre. Profites-en pour tester ce qui a été fait et préparer le prochain bloc.</td></tr>
+<tr><td>Rien ne marche</td><td></td><td>Envoie à Julien une capture de la barre et le message d'erreur exact.</td></tr>
+</table>
+
+<h2 class="pb">11. Aide-mémoire</h2>
+
+<h3>La routine</h3>
+<ol>
+  <li>Ouvrir le dossier du projet dans VS Code.</li>
+  <li>Regarder la barre : « 5h » et « Sem » laissent-ils de la marge ?</li>
+  <li>Réfléchir : <code>/model opus</code>, <code>/brainstorm "idée"</code>.</li>
+  <li>Découper : <code>/clear</code>, <code>/model opus</code>, <code>/plan</code>.</li>
+  <li>Produire : <code>/clear</code>, <code>/model sonnet</code>, <code>/bloc N</code>. Tester. Valider. Recommencer au bloc suivant.</li>
+  <li>Entre deux sujets : toujours <code>/clear</code>.</li>
+</ol>
+
+<h3>Les commandes</h3>
+<table>
+<tr><th>Commande</th><th>Effet</th></tr>
+<tr><td><code>/clear</code></td><td>Nouvelle conversation vide. Le réflexe numéro 1.</td></tr>
+<tr><td><code>/usage</code></td><td>Consommation 5 h et semaine, en grand.</td></tr>
+<tr><td><code>/model sonnet</code> · <code>/model opus</code> · <code>/model haiku</code></td><td>Changer de modèle (production · réflexion · mécanique).</td></tr>
+<tr><td><code>/effort medium</code> · <code>/effort high</code></td><td>Moins ou plus de réflexion. Medium pour le contenu simple.</td></tr>
+<tr><td><code>/context</code></td><td>Voir ce qui remplit la conversation.</td></tr>
+<tr><td><code>/compact</code></td><td>Résumer la conversation. Préférer <code>/clear</code> quand le plan est à jour.</td></tr>
+<tr><td><code>/login</code></td><td>Se reconnecter.</td></tr>
+<tr><td><span class="kbd">Échap</span></td><td>Interrompre Claude immédiatement.</td></tr>
+<tr><td><code>/brainstorm "idée"</code></td><td>Direction complète + questions groupées + BRIEF.md (Opus).</td></tr>
+<tr><td><code>/plan</code></td><td>BRIEF.md devient PLAN.md en blocs courts (Opus, session neuve).</td></tr>
+<tr><td><code>/bloc N</code></td><td>Exécute un bloc, teste, met le plan à jour, attend ton ok (Sonnet, session neuve).</td></tr>
+<tr><td><code>/video "idée"</code></td><td>Dans le dossier vidéo : une vidéo en deux arrêts (script, planche), puis MP4.</td></tr>
+</table>
+
+<h3>Les seuils</h3>
+<table>
+<tr><th>Indicateur</th><th>Vert</th><th>Orange</th><th>Rouge</th></tr>
+<tr><td>🧠 ctx</td><td>sous 40 %</td><td>40 à 60 % : terminer l'étape</td><td>plus de 60 % : <code>/clear</code></td></tr>
+<tr><td>🕐 5h</td><td>sous 60 %</td><td>60 à 80 % : pas de nouveau gros chantier</td><td>plus de 80 % : finir, puis attendre le reset</td></tr>
+<tr><td>📅 Sem</td><td>sous 60 %</td><td>60 à 80 % : essentiel seulement</td><td>plus de 80 % : garder pour l'urgent</td></tr>
+<tr><td>Vidéo</td><td colspan="3">Lancer seulement si 5h sous 30 % et Sem sous 60 %. Une vidéo par session.</td></tr>
+</table>
+
+<p class="small">Ce guide est dans <code>~/KIT-CLAUDE-CODE/guide/GUIDE-COLINE.pdf</code>. Pour le rouvrir : double-clic, ou dans le Terminal <code>open ~/KIT-CLAUDE-CODE/guide/GUIDE-COLINE.pdf</code>. Pour mettre le kit à jour quand Julien le modifie : <code>cd ~/KIT-CLAUDE-CODE && git pull && bash install.sh</code>.</p>
+
+</body>
+</html>
