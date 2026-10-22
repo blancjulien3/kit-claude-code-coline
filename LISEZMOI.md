@@ -17,7 +17,19 @@ curl -fsSL https://claude.ai/install.sh | bash
 
 Vérifie avec `claude --version` dans un nouveau Terminal.
 
-## 2. Installer le kit (une seule commande)
+## 2. Installer le kit
+
+### Option A : depuis Claude Code dans VS Code (le plus simple)
+
+Ouvre le panneau Claude Code dans VS Code et colle ce message :
+
+```
+Récupère et installe le kit de Julien : exécute `git clone https://github.com/blancjulien3/kit-claude-code-coline.git ~/KIT-CLAUDE-CODE` (si le dossier existe déjà, fais plutôt `git -C ~/KIT-CLAUDE-CODE pull`), puis `bash ~/KIT-CLAUDE-CODE/install.sh`. Si git n'est pas installé, dis-moi quoi faire. Montre-moi la sortie du script, confirme que ~/.claude/CLAUDE.md, ~/.claude/settings.json, ~/.claude/scripts/statusline.sh et ~/.claude/commands/brainstorm.md existent, et ouvre le PDF ~/KIT-CLAUDE-CODE/guide/GUIDE-COLINE.pdf s'il ne s'est pas ouvert tout seul. Ensuite, pose-moi en une seule fois les trois questions pour remplir ~/.claude/CLAUDE.md : le nom de ma marque, la plateforme de ma boutique et l'adresse de mon site, et écris mes réponses dans le fichier. Termine en me disant de relancer VS Code pour voir la barre de statut.
+```
+
+Claude te demandera l'autorisation d'exécuter les commandes : accepte.
+
+### Option B : depuis le Terminal
 
 Ouvre l'application Terminal (Cmd+Espace, tape « Terminal ») et colle cette ligne, puis Entrée :
 
